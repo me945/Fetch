@@ -1,16 +1,24 @@
 {
   "name": "github-thingy",
   "version": "1.0.0",
-  "description": "Nothing yet",
-  "main": "github.js",
+  "description": "not sure",
+  "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
   },
-  "author": "",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/me945/stunning-sniffle.git"
+  },
+  "author": "me",
   "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/me945/stunning-sniffle/issues"
+  },
+  "homepage": "https://github.com/me945/stunning-sniffle#readme",
   "dependencies": {
     "express": "^4.17.1",
-    "http": "0.0.1-security",
+    "node": "^15.3.0",
     "nodemon": "^2.0.6"
   }
 }

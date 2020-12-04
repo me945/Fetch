@@ -22,14 +22,13 @@ app.get('/data', (req, res) => {
 
 //function to find the user
 function checkForUser(user){
-  // console.log("this is user");
-  // console.log(user);
      for (var i =0; i < data[0].user.length; i++){
         if(data[0].user[i].id == user){
         return(JSON.stringify(data[0].user[i]));
       }
      }
 }
+
 //function to find project owner
 function checkForProjectOwner(project){
      for (var i =0; i < data[1].project.length; i++){
@@ -46,8 +45,7 @@ function checkForProjectOwner(project){
      return(userInfo);
 }
 
-
-//function to find project contributers
+//function to find project contributer
 function checkForProjectCon(project){
 
      for (var i =0; i < data[2].Contributing.length; i++){
@@ -82,6 +80,8 @@ app.get('/data/:user', (req, res) => {
       res.json(getProject);
     }
   });
+
+//---------------ignore below-------------------
 
 //  //returns project contibute
 //   app.get('/data/con/:project', (req, res) => {
@@ -126,8 +126,6 @@ for(var j=0; j < data[1].project.length; j++){
   }
   
 }
-
-
 
 // console.log("Accessing the object");
 // const data2 = someData;
@@ -175,3 +173,12 @@ console.log(item_name);
 // const json = '{ "fruit": "pineapple", "fingers": 10 }';
 // const obj = JSON.parse(json);
 // console.log(obj.fruit, obj.fingers);
+// const initialState = [
+//   {id:1 ,name: 'Product A', image: 'pic-001.jpg', tags: ['nature', 'camping', 'outdoor']},
+//   {id:2 ,name: 'Product B', image: 'pic-002.jpg', tags: ['winter', 'hiking', 'camping', 'snow']},
+//   {id:3 ,name: 'Product C', image: 'pic-003.jpg', tags: ['vacation', 'family', 'kids', 'river', 'lake', 'fishing']}
+// ]
+
+// console.log(data[0].user[1]);
+// console.log(initialState);
+

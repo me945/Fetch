@@ -8,22 +8,22 @@
             }]
     },
 
-    {"project":[{ "id" :1,
+    {"project":[{ "id" : 1,
                  "title": "pro2",
-                 "Owner_id": 1
+                 "Owner_id": 2
                },
 
                { "id" :2,
                 "title": "Pro2",
-                "Owner_id": 2
+                "Owner_id": 1
               }]           
     },
 
     {"Contributing":[{ "User_id": 1,
-                      "Project_id": 1  
+                       "Project_id": 1  
                     },
                     { "User_id": 2,
-                        "Project_id": 2  
+                      "Project_id": 2  
                     }]
     }
 ]

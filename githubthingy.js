@@ -65,8 +65,7 @@ function checkForProjectCon(project){
         }
      }
      return(userInfo);
-}
-  
+}  
   //Projetcs/username - > returns json object with project's info
   function fetchProjectInfo(user,project){
     for (var i =0; i < projects.length; i++){
@@ -76,6 +75,7 @@ function checkForProjectCon(project){
   };
 }
 
+  
 //return user's info
 app.get('/project/:userId', (req, res) => {
     const user = String(req.params.userId);
@@ -103,7 +103,9 @@ app.get('/project/:userId', (req, res) => {
   });
 
    //returns Porject contributers
+
    app.get('/project/:user/:project/con', (req, res) => {
+
     const project = String(req.params.project);
     const user = String(req.params.user);
     const getProject = checkForProjectCon(user,project);

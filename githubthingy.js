@@ -66,8 +66,16 @@ function checkForProjectCon(project){
      }
      return(userInfo);
 }
-
   
+  //Projetcs/username - > returns json object with project's info
+  function fetchProjectInfo(user,project){
+    for (var i =0; i < projects.length; i++){
+      if(projects[i].Owner_id == user){
+        return(projects[i].title);
+      }
+  };
+}
+
 //return user's info
 app.get('/project/:userId', (req, res) => {
     const user = String(req.params.userId);
@@ -95,7 +103,7 @@ app.get('/project/:userId', (req, res) => {
   });
 
    //returns Porject contributers
-   app.get('/projects/:user/:project/con', (req, res) => {
+   app.get('/project/:user/:project/con', (req, res) => {
     const project = String(req.params.project);
     const user = String(req.params.user);
     const getProject = checkForProjectCon(user,project);
@@ -107,18 +115,18 @@ app.get('/project/:userId', (req, res) => {
     }
   });
 
-// //returns project titile info
-// app.get('/projects/:user/:project_title', (req, res) => {
-//   const project = String(req.params.project_title);
-//   const user = String(req.params.user);
-//   const getProject = fetchProjectInfo(user,project);
+//returns project titile info
+app.get('/projects/:user', (req, res) => {
+  const project = String(req.params.project_title);
+  const user = String(req.params.user);
+  const getProject = fetchProjectInfo(user,project);
 
-//   if (!getProject) {
-//     res.status(500).send('project not found.')
-//   } else {
-//     res.json(getProject);
-//   }
-// });
+  if (!getProject) {
+    res.status(500).send('project not found.')
+  } else {
+    res.json(getProject);
+  }
+});
 
 
   console.log(global)
@@ -297,6 +305,7 @@ console.log(users.filter((x)=> x.id ==1));
 console.log(users[1]);
 console.log("this is projects \n" + JSON.stringify(projects[0].title,null,4));
 
+console.log(projects[1].title);
 // console.log(projects.filter((x)=> x.title.filter() == "First project"));
 
 

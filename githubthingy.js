@@ -128,7 +128,6 @@ app.get('/projects/:user', (req, res) => {
   }
 });
 
-
   console.log(global)
 
 

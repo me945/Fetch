@@ -103,7 +103,6 @@ app.get('/project/:userId', (req, res) => {
   });
 
    //returns Porject contributers
-
    app.get('/project/:user/:project/con', (req, res) => {
 
     const project = String(req.params.project);
@@ -131,7 +130,3 @@ app.get('/projects/:user', (req, res) => {
 });
 
   console.log(global)
-
-
-
-

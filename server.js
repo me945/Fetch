@@ -75,7 +75,6 @@ function checkForProjectCon(project){
   };
 }
 
-
   //Projetcs/username - > returns json object with project's contributersb
   function fetchProjectContributers(user,project){
     //find the project owner id matchs the user id
@@ -113,6 +112,7 @@ app.get('/project/:userId', (req, res) => {
       }
   });
 
+
   //Object Example: { "id" :2, name": "yes"}
   //return project owner
   app.get('/project/:project/:user', (req, res) => {
@@ -126,6 +126,7 @@ app.get('/project/:userId', (req, res) => {
       res.json(getProject);
     }
   });
+
 
    //Object Example: { "id" :2, name": "yes"}
    //returns Porject contributers
@@ -143,6 +144,7 @@ app.get('/project/:userId', (req, res) => {
   });
 
 
+
 //Object Example: { "title_name" : "first_project",
 //                   "description": "found  more reasons to hate JS",
 //                    "commits": -1},
@@ -158,6 +160,7 @@ app.get('/projects/:user/:project_title', (req, res) => {
     res.json(getProject);
   }
 });
+
 
 //Object Example: [ { "id" :1, name": "whatever"}
 //                { "id" :2, name": "yes"} ]

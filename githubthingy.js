@@ -75,6 +75,28 @@ function checkForProjectCon(project){
   };
 }
 
+  //Projetcs/username - > returns json object with project's contributersb
+  function fetchProjectContributers(user,project){
+    //find the project owner id matchs the user id
+    for (var i =0; i < projects.length; i++){
+      if(projects[i].Owner_id == user){
+        var x =projects[i].id;
+      }
+  }
+  //find contributers on that project
+  for (var j =0; j < contributes_on.length; j++){
+    if(contributes_on[j].Project_id == x){
+      var y = contributes_on[i].User_id;
+    }
+  }
+  //fetch info of the users
+  for (var k =0; k < users.length; k++){
+    if(users[k].id == y){
+      var z = users[k];
+    }
+  }
+
+}
   
 //return user's info
 app.get('/project/:userId', (req, res) => {
@@ -129,4 +151,16 @@ app.get('/projects/:user', (req, res) => {
   }
 });
 
-  console.log(global)
+//returns projects all contibuters
+app.get('/projects/:user/con', (req, res) => {
+  const project = String(req.params.project_title);
+  const user = String(req.params.user);
+  const getProject = fetchProjectContributers(user,project);
+
+  if (!getProject) {
+    res.status(500).send('project not found.')
+  } else {
+    res.json(getProject);
+  }
+});
+//console.log(global)

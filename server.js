@@ -75,6 +75,7 @@ function checkForProjectCon(project){
   };
 }
 
+
   //Projetcs/username - > returns json object with project's contributersb
   function fetchProjectContributers(user,project){
     //find the project owner id matchs the user id
@@ -97,7 +98,8 @@ function checkForProjectCon(project){
   }
 
 }
-  
+
+//Object Example: { "id" :1, name": "whatever"}
 //return user's info
 app.get('/project/:userId', (req, res) => {
     const user = String(req.params.userId);
@@ -111,6 +113,7 @@ app.get('/project/:userId', (req, res) => {
       }
   });
 
+  //Object Example: { "id" :2, name": "yes"}
   //return project owner
   app.get('/project/:project/:user', (req, res) => {
     const project = String(req.params.project);
@@ -124,6 +127,7 @@ app.get('/project/:userId', (req, res) => {
     }
   });
 
+   //Object Example: { "id" :2, name": "yes"}
    //returns Porject contributers
    app.get('/project/:user/:project/con', (req, res) => {
 
@@ -138,6 +142,10 @@ app.get('/project/:userId', (req, res) => {
     }
   });
 
+
+//Object Example: { "title_name" : "first_project",
+//                   "description": "found  more reasons to hate JS",
+//                    "commits": -1},
 //returns project titile info
 app.get('/projects/:user', (req, res) => {
   const project = String(req.params.project_title);
@@ -151,6 +159,8 @@ app.get('/projects/:user', (req, res) => {
   }
 });
 
+//Object Example: [ { "id" :1, name": "whatever"}
+//                { "id" :2, name": "yes"} ]
 //returns projects all contibuters
 app.get('/projects/:user/con', (req, res) => {
   const project = String(req.params.project_title);

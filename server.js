@@ -147,7 +147,7 @@ app.get('/project/:userId', (req, res) => {
 //                   "description": "found  more reasons to hate JS",
 //                    "commits": -1},
 //returns project titile info
-app.get('/projects/:user', (req, res) => {
+app.get('/projects/:user/:project_title', (req, res) => {
   const project = String(req.params.project_title);
   const user = String(req.params.user);
   const getProject = fetchProjectInfo(user,project);

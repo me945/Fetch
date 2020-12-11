@@ -1,11 +1,19 @@
 module.exports = {
  
     "users":[{ "id" :1,
-              "name": "whatever"  
+              "name": "first"  
             },
 
             { "id" :2,
-               "name": "yes"  
+               "name": "second"  
+            },
+
+            { "id" :3,
+            "name": "third"  
+            },
+
+            { "id" :4,
+            "name": "fourth"  
             }],
 
     "projects":[{ "id" : 1,
@@ -30,9 +38,14 @@ module.exports = {
               }],
 
     "contributes_on":[{ "User_id": 1,
+                        "User_id": 3,
+                        "User_id": 2,
+
                        "Project_id": 1  
                     },
                     { "User_id": 2,
+                      "User_id": 4,
+                      "User_id": 3,
                       "Project_id": 2  
                     }]
 };

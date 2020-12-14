@@ -37,13 +37,14 @@ module.exports = {
 
               }],
 
-    "contributes_on":[{ "User_id": 1,
+    "contributes_on":[{ 
+                        "Project_id": 1, 
+                        "User_id": 1,
                         "User_id": 3,
                         "User_id": 2,
-
-                       "Project_id": 1  
                     },
-                    { "User_id": 2,
+                    { 
+                      "User_id": 2,
                       "User_id": 4,
                       "User_id": 3,
                       "Project_id": 2  

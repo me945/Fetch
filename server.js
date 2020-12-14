@@ -141,15 +141,16 @@ app.get('/projects/:user/:project_title', (req, res) => {
 //                  Username : name,    
 //                  projects: [{"id" : 1,
 //                  "title_name":"first_project",
-//                  "url" : "http://google.com"  localhost:3000/name/first_project
+//                  "url" : /projects/name/first_project
 //                   },
 //
 //                   {"id" : 2,
 //                    "title_name":"second_project",
-//                    "url" : "http://yahoo.com" localhost:3000/name/second_project
+//                    "url" : /projects/name/second_project
 //                   }]     
 //                 }
 //returns projects all contibuters
+
 app.get('/projects/:user/', (req, res) => {
   const project = String(req.params.project_title);
   const user = String(req.params.user);

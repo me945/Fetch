@@ -38,15 +38,15 @@ module.exports = {
               }],
 
     "contributes_on":[{ 
-                        "Project_id": 1, 
-                        "User_id": 1,
-                        "User_id": 3,
-                        "User_id": 2,
+                        "project_id": 1, 
+                        "user_id": 1,
+                        "user_id": 3,
+                        "user_id": 2,
                     },
                     { 
-                      "User_id": 2,
-                      "User_id": 4,
-                      "User_id": 3,
-                      "Project_id": 2  
+                      "project_id": 2,
+                      "user_id": 2,
+                      "user_id": 4,
+                      "user_id": 3, 
                     }]
 };

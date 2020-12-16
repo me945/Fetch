@@ -1,55 +1,50 @@
 module.exports = {
- 
-    "users":[{ "id" :1,
-              "name": "first"  
-            },
+    users: [
+        { id: 1, name: 'first' },
 
-            { "id" :2,
-               "name": "second"  
-            },
+        { id: 2, name: 'second' },
 
-            { "id" :3,
-            "name": "third"  
-            },
+        { id: 3, name: 'third' },
 
-            { "id" :4,
-            "name": "fourth"  
-            }],
+        { id: 4, name: 'fourth' },
+    ],
 
-    "projects":[{ "id" : 1,
-                 
-                    "title_name" : "first_project",
-                    "description": "found  more reasons to hate JS",
-                    "commits": -1,
-                  
-                 "Owner_id": 2,
-                 "url" : "/projects/name/first_project"
-               },
+    projects: [
+        {
+            id: 1,
 
-               { "id" :2,
-                 
-                    "title_name" : "second_project",
-                    "description": "idk",
-                    "commits": "null",
-                  
-                "Owner_id": 1,
-                "url" : "/projects/name/second_project"
+            title_name: 'first_project',
+            description: 'found  more reasons to hate JS',
+            commits: -1,
 
-              }],
+            Owner_id: 2,
+            url: '/projects/name/first_project',
+        },
 
-    "contributes_on": [ 
-                        { 
-                          "project_id": 1,
-                          "id" :1,  
-                        },
-                        { 
-                          "project_id": 2,
-                          "id": 1,  
-                        },
-                        { 
-                          "project_id": 2,
-                            "id":2
-                        },
-                      ] 
-                      
-};
+        {
+            id: 2,
+
+            title_name: 'second_project',
+            description: 'idk',
+            commits: 'null',
+
+            Owner_id: 1,
+            url: '/projects/name/second_project',
+        },
+    ],
+
+    contributes_on: [
+        {
+            project_id: 1,
+            username: 'first',
+        },
+        {
+            project_id: 2,
+            username: 'first',
+        },
+        {
+            project_id: 2,
+            username: 'second',
+        },
+    ],
+}

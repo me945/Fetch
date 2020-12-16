@@ -17,36 +17,39 @@ module.exports = {
             }],
 
     "projects":[{ "id" : 1,
-                 "title": {
+                 
                     "title_name" : "first_project",
                     "description": "found  more reasons to hate JS",
-                    "commits": -1
-                  },
+                    "commits": -1,
+                  
                  "Owner_id": 2,
-                 "url" : ""
+                 "url" : "/projects/name/first_project"
                },
 
                { "id" :2,
-               "title": {
-                "title_name" : "second_project",
-                "description": "idk",
-                "commits": "null"
-              },
+                 
+                    "title_name" : "second_project",
+                    "description": "idk",
+                    "commits": "null",
+                  
                 "Owner_id": 1,
-                "url" : ""
+                "url" : "/projects/name/second_project"
 
               }],
 
-    "contributes_on":[{ 
-                        "project_id": 1, 
-                        "user_id": 1,
-                        "user_id": 3,
-                        "user_id": 2,
-                    },
-                    { 
-                      "project_id": 2,
-                      "user_id": 2,
-                      "user_id": 4,
-                      "user_id": 3, 
-                    }]
+    "contributes_on": [ 
+                        { 
+                          "project_id": 1,
+                          "id" :1,  
+                        },
+                        { 
+                          "project_id": 2,
+                          "id": 1,  
+                        },
+                        { 
+                          "project_id": 2,
+                            "id":2
+                        },
+                      ] 
+                      
 };

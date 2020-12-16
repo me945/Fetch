@@ -8,6 +8,7 @@ const {users, projects, contributes_on} = require('./project');
 var express = require("express");
 const project = require("./project");
 const { Server } = require("http");
+const { SSL_OP_SSLEAY_080_CLIENT_DH_BUG } = require("constants");
 const app = express();
 
 const PORT = 3000;
@@ -87,24 +88,50 @@ function checkForProjectOwner(user,project){
 
 //---------Find projects info of the user---------------------------------------------
 
+  // Object Example:  {    
+  //                     "title_name" : "first_project",
+  //                     "description": "found  more reasons to hate JS",
+  //                     "commits": -1
+  //                      contributors: [
+  //                                      {user:"name"},.       
+  //                                      {user:"name"}
+  //                                    ]
+  //                  },
   //Projetcs/username - > returns json object with project's info
   function fetchProjectInfo(user,project){
+
+    var obj = {}, obj2 ={}, arr=[], arr2= [], p_id;
+
+    //adding project info
     for (var i =0; i < projects.length; i++){
-      if(projects[i].Owner_id == user){
-        return(projects[i].title);
+      if(projects[i].title_name == project){
+        obj.title_name = projects[i].title_name;
+        obj.description = projects[i].description;
+        obj.commits = projects[i].commits;
+        p_id = projects[i].id;
       }
   };
+
+    //find contirbutions 
+    for(var i=0; i < contributes_on.length; i++){
+      if( contributes_on[i].id == p_id){
+        arr.push (contributes_on[i].id);
+      } 
+    }
+
+  //get project info
+  for(var i=0; i <arr.length;i++){
+    if(users[i].id == arr[i]){  
+        obj2 = users[i];
+        delete obj2.id
+        arr2.push(obj2)
+    }
+  }
+
+  obj.contributers  = Object.assign(arr2)
+  return(JSON.stringify(obj,null,4))
 }
 
-// Object Example:  {    
-//                     "title_name" : "first_project",
-//                     "description": "found  more reasons to hate JS",
-//                     "commits": -1
-//                      Contributors: [
-//                                      {user:"name"},.       
-//                                      {user:"name"}
-//                                    ]
-//                  },
 //returns project titile info
 app.get('/projects/:user/:project_title', (req, res) => {
   const project = String(req.params.project_title);
@@ -120,23 +147,6 @@ app.get('/projects/:user/:project_title', (req, res) => {
 
 //---------Find the projects the user is coontibuting to-----------------------------------------
 
-  //Projetcs/username - > returns json object with project's contributers
-  function userProjectsCont(user,project){
-  //find projects the user is contributing to
-  for (var j =0; j < contributes_on.length; j++){
-    if(contributes_on[j].User_id == user){
-      var y = contributes_on[i].Project_id;
-    }
-  }
-
-  //fetch project info
-  for (var k =0; k < projects.length; k++){
-    if(project[k].Project_id == y){
-      return (project[k].title)
-    }
-  }
-}
-
 //Object Example:  {
 //                  Username : name,    
 //                  projects: [{"id" : 1,
@@ -149,12 +159,45 @@ app.get('/projects/:user/:project_title', (req, res) => {
 //                    "url" : /projects/name/second_project
 //                   }]     
 //                 }
-//returns projects all contibuters
 
+function userProjects(user){
+  //projects/:user/
+  var objtest ={}, proObj = {}, arrtest= [], arrtest2 =[];
+
+  //get username
+  for(var i =0 ; i<users.length; i++){
+    if(users[i].id == user){
+        objtest.username = (users[i].name)
+        useridtest = users[i].id;
+    }
+  }
+
+  //find contirbutions 
+  for(var i=0; i < contributes_on.length; i++){
+    if( contributes_on[i].id == useridtest){
+        arrtest.push (contributes_on[i].project_id);
+    } 
+  }
+
+  //get project info
+  for(var i=0; i <arrtest.length;i++){
+    if(projects[i].id == arrtest[i]){  
+        proObj = projects[i];
+        delete proObj.Owner_id
+        delete proObj.description
+        delete proObj.commits
+        arrtest2.push(proObj)
+      }
+}
+
+  objtest.projects  = Object.assign(arrtest2)
+    return(JSON.stringify(objtest,null,4));
+}
+
+// returns user projects that he/she contributed to
 app.get('/projects/:user/', (req, res) => {
-  const project = String(req.params.project_title);
   const user = String(req.params.user);
-  const getProject = userProjectsCont(user,project);
+  const getProject = userProjects(user);
 
   if (!getProject) {
     res.status(500).send('project not found.')
@@ -162,9 +205,8 @@ app.get('/projects/:user/', (req, res) => {
     res.json(getProject);
   }
 });
-      
     
-//----------------The End----------------------------
+//----------------The End---------------------------------------[End]
   //console.log(global)
 
   // //find project contributer
@@ -201,6 +243,157 @@ app.get('/projects/:user/', (req, res) => {
   //   }
   // });
 
+ var x = projects.filter((x)=> x.title_name == "second_project");
+//  console.log(JSON.stringify(x,null,4));
+//  var y = projects.filter((x)=> x.title.title_name == "first_project");
+//  console.log(JSON.stringify(y,null,4));
+
+ var obj ={};
+ var arr =[];
+ // username done!
+ users.find((x)=> x.name === "first");
+
+ obj.username = "humaid";
+
+ for(var i =0 ; i<users.length; i++){
+    if(users[i].id == 1){
+        obj.username = (users[i].name)
+    }
+ }
 
 
- console.log(JSON.stringify(contributes_on,null,4));
+//  var f  = (projects.filter((x) =>x.id == 1));
+//  obj.projects= JSON.stringify(f,null,4);
+//  var lemon= JSON.stringify(obj)
+//  console.log( lemon)
+ console.log("----------------------------------");
+
+
+    // var obj2 = projects.filter((x) => x.title_name == "first_project")
+
+    // obj.projects = Object.assign(obj2)
+    // var objs = JSON.stringify(obj,null,4)
+    // console.log(objs) 
+
+    // // var x = contributes_on.filter((x)=> x.project_id == 2);
+    // // var   mac = x[1].users.id 
+
+    // // console.log(JSON.stringify(obj,null,4))
+
+    // var lak = projects[1].title_name;
+
+    // console.log(lak)
+
+    // for(var i=0; i < contributes_on.length; i++){
+    //   if( contributes_on[i].id == 2){
+    //       arr.push(contributes_on[i].project_id);
+    //   } 
+    // }
+
+    // var okl = projects.filter((obj) => {
+    //                           return obj.id == 1;})
+                            
+    // var obj23 = {}
+    // obj23.contributors = Object.assign(okl)
+    // console.log(JSON.stringify(obj23,null,4))
+
+// console.log(JSON.stringify(contributes_on,null,4));
+//---------------THIS IS WHERE IT STARTS-------------------------[projects/user]
+          // console.log("THIS IS WHERE IT STARTS");
+
+          // ///projects/:user/
+          // var objtest ={}, proObj = {}, arrtest= [], arrtest2 =[];
+          // var usertest = 1;
+          // var useridtest;
+          // //get username
+          // for(var i =0 ; i<users.length; i++){
+          //   if(users[i].id == usertest){
+          //       objtest.username = (users[i].name)
+          //       useridtest = users[i].id;
+          //   }
+          // }
+
+          // //find contirbutions 
+          // for(var i=0; i < contributes_on.length; i++){
+          //   if( contributes_on[i].id == useridtest){
+          //       arrtest.push (contributes_on[i].project_id);
+          //   } 
+          // }
+          // console.log
+          // console.log("This is array"+JSON.stringify(arrtest,null,4))
+          // // objtest.contributors = Object.assign(arrtest);
+          // console.log("This is object after adidng array"+JSON.stringify(objtest,null,4))
+          // //get project info
+          // for(var i=0; i <arrtest.length;i++){
+          //   if(projects[i].id == arrtest[i]){  
+          //       proObj = projects[i];
+          //       delete proObj.Owner_id
+          //       delete proObj.description
+          //       delete proObj.commits
+          //       arrtest2.push(proObj)
+          //       console.log(arrtest2)
+          //     }
+          // }
+          // //var obj2test = projects.filter((x) => x.id == arrtest[i].project_id);
+          // objtest.projects  = Object.assign(arrtest2)
+          // console.log("This is the Final Object \n" + JSON.stringify(objtest,null,4));
+
+  //                {
+  //                  Username : name,    
+  //                  projects: [{"id" : 1,
+  //                  "title_name":"first_project",
+  //                  "url" : /projects/name/first_project
+  //                   },
+  //
+  //                   {"id" : 2,
+  //                    "title_name":"second_project",
+  //                    "url" : /projects/name/second_project
+  //                   }]     
+  //                 }
+
+
+  //-----------Learning-----------------
+
+  // function userProjectsCont(user,project){
+  //   var obj ={}, arr= [];
+  //   //get username
+  //   for(var i =0 ; i<users.length; i++){
+  //     if(users[i].id == user){
+  //         obj.username = (users[i].name)
+  //     }
+  //  }
+  //   //find contirbutions 
+  //   for(var i=0; i < contributes_on.length; i++){
+  //     if( contributes_on[i].id == 2){
+  //         arr.push(contributes_on[i].project_id);
+  //     } 
+  //   }
+  //   //get project info
+  //   var obj2 = projects.filter((x) => x.id == 2);
+  //   obj.projects  = Object.assign(obj2);
+  
+  //   return(JSON.stringify(obj,null,4));
+  // }
+
+  //--------------Project info & contributers---------------------[Project info and Contributors]
+
+//     var lice =[],lice2 =[],ocas ={}, ocas2 = {};
+//    //find contirbutions 
+//    for(var i=0; i < contributes_on.length; i++){
+//     if( contributes_on[i].id == i){
+//       lice.push (contributes_on[i].id);
+//   } 
+// }
+// console.log(lice)
+
+// //get project info
+// for(var i=0; i <lice.length;i++){
+//   if(users[i].id == lice[i]){  
+//      ocas = users[i];
+//      delete ocas.id
+//       lice2.push(ocas)
+//     }
+// }
+
+//   ocas2.contributers  = Object.assign(lice2)
+//   console.log(JSON.stringify(ocas2,null,4));

@@ -56,13 +56,13 @@ app.get('/project/:userId', (req, res) => {
 //find project owner
 function checkForProjectOwner(user, project) {
     for (var i = 0; i < projects.length; i++) {
-        if (projects[i].id == project) {
+        if (projects[i].id === project) {
             var x = JSON.stringify(projects[i].Owner_id)
         }
     }
-    if (x == user) {
+    if (x === user) {
         for (var j = 0; j < users.length; j++) {
-            if (users[j].id == x) {
+            if (users[j].id === x) {
                 var userInfo = users[j]
             }
         }
@@ -107,7 +107,7 @@ function fetchProjectInfo(user, project) {
 
     //adding project info
     for (var i = 0; i < projects.length; i++) {
-        if (projects[i].title_name == project) {
+        if (projects[i].title_name === project) {
             obj.title_name = projects[i].title_name
             obj.description = projects[i].description
             obj.commits = projects[i].commits
@@ -117,18 +117,20 @@ function fetchProjectInfo(user, project) {
 
     //find contirbutions
     for (var i = 0; i < contributes_on.length; i++) {
-        if (contributes_on[i].id == p_id) {
+        if (contributes_on[i].id === p_id) {
             arr.push(contributes_on[i].username)
         }
     }
 
     //get project info
     for (var i = 0; i < arr.length; i++) {
-        if (users[i].username == arr[i]) {
+      for(var j=0; j<= users.length; j++){
+        if (users[j].username == arr[i]) {
             obj2 = users[i]
             delete obj2.id
             arr2.push(obj2)
         }
+      }
     }
 
     obj.contributers = Object.assign(arr2)
@@ -172,7 +174,7 @@ function userProjects(user) {
 
     //get username
     for (var i = 0; i < users.length; i++) {
-        if (users[i].username == user) {
+        if (users[i].username === user) {
             objtest.username = users[i].name
             useridtest = users[i].id
         }
@@ -180,14 +182,14 @@ function userProjects(user) {
 
     //find contirbutions
     for (var i = 0; i < contributes_on.length; i++) {
-        if (contributes_on[i].id == useridtest) {
+        if (contributes_on[i].id === useridtest) {
             arrtest.push(contributes_on[i].project_id)
         }
     }
 
     //get project info
     for (var i = 0; i < arrtest.length; i++) {
-        if (projects[i].id == arrtest[i]) {
+        if (projects[i].id === arrtest[i]) {
             proObj = projects[i]
             delete proObj.Owner_id
             delete proObj.description
@@ -211,3 +213,7 @@ app.get('/projects/:user/', (req, res) => {
         res.json(getProject)
     }
 })
+
+
+
+

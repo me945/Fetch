@@ -36,15 +36,15 @@ module.exports = {
     contributes_on: [
         {
             project_id: 1,
-            username: 'first',
+            user_id: 1,
         },
         {
             project_id: 2,
-            username: 'first',
+            user_id: 1,
         },
         {
             project_id: 2,
-            username: 'second',
+            user_id: 2,
         },
     ],
 }

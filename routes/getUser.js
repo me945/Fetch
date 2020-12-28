@@ -1,6 +1,8 @@
 const express = require('express')
 const router = express.Router({ mergeParams: true })
 const { users, projects, contributes_on } = require('../project')
+const { resolve } = require('path')
+const fetch = require('node-fetch')
 
 //---------Find the projects the user is coontibuting to-----------------------------------------
 
@@ -18,32 +20,31 @@ const { users, projects, contributes_on } = require('../project')
 //                   }]
 //                 }
 
-function userProjects(username) {
-    let user = {}
+async function userProjects(username) {
+    var user = {}
     user.projects = []
 
-    //get username
-    for (var i = 0; i < users.length; i++) {
-        if (users[i].name === username) {
-            // objtest.username = users[i].name
-            // userIdTest = users[i].id
-            user.username = users[i].name
-            user.id = users[i].id
-        }
-    }
+    fetch(`https://api.github.com/users/${username}`)
+        .then((res) => res.json())
+        .then((json) => {
+            user.id = json.id
+            user.name = json.name
+        })
 
-    for (var i = 0; i < projects.length; i++) {
-        if (projects[i].Owner_id === user.id) {
-            const project = {}
-            project.id = projects[i].id
-            project.title_name = projects[i].title_name
-            project.url = projects[i].url
-            user.projects.push(project)
-        }
-    }
-
-    // objtest.projects = Object.assign(arrtest2)
-    return user
+    fetch(`https://api.github.com/users/${username}/repos`)
+        .then((res) => res.json())
+        .then((json) => {
+            for (let i = 0; i < json.length; i++) {
+                let project = {}
+                project.id = json[i].id
+                project.name = json[i].name
+                project.url = json[i].url
+                user.projects.push(project)
+            }
+        })
+        .then(() => {
+            console.log(user)
+        })
 }
 
 // returns user projects that he/she contributed to

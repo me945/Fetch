@@ -1,7 +1,8 @@
 const express = require('express')
 const router = express.Router({ mergeParams: true })
 const { users, projects, contributes_on } = require('../project')
-
+const { resolve } = require('path')
+const fetch = require('node-fetch')
 //---------Find projects info of the user---------------------------------------------
 
 // Object Example:  {
@@ -15,42 +16,51 @@ const { users, projects, contributes_on } = require('../project')
 //                  },
 //Projetcs/username - > returns json object with project's info
 function fetchProjectInfo(username, projectTitle) {
-    var obj = {},
-        obj2 = {},
-        arr = [],
-        arr2 = [],
-        p_id
+    var user = {}
+    user.contributors = []
+    let login = []
 
-    //adding project info
-    for (let i = 0; i < projects.length; i++) {
-        if (projects[i].title_name === projectTitle) {
-            obj.title_name = projects[i].title_name
-            obj.description = projects[i].description
-            obj.commits = projects[i].commits
-            p_id = projects[i].id
-        }
-    }
+    //test link: http://localhost:3000/projects//me945/IOS_Calculator/
+    //https://api.github.com/repos/$(username)/$(projectTitle)
+    //https://api.github.com/repos/$(username)/$(projectTitle)/commits
+    //https://api.github.com/repos/$(username)/$(projectTitle)/contributors
 
-    //find contirbutions
-    for (let i = 0; i < contributes_on.length; i++) {
-        if (contributes_on[i].project_id === p_id) {
-            arr.push(contributes_on[i].user_id)
-        }
-    }
+    fetch(`https://api.github.com/repos/${username}/${projectTitle}/commits`)
+        .then((res) => res.json())
+        .then((json) => {
+            user.commits = json.length
+        })
+        .then(() => {
+            console.log(user)
+        })
 
-    //get the username that belongs to that id
-    for (let i = 0; i < users.length; i++) {
-        for (let j = 0; j < arr.length; j++) {
-            if (users[i].id === arr[j]) {
-                let obj = {}
-                obj.username = users[i].name
-                arr2.push(obj)
+    fetch(`https://api.github.com/repos/${username}/${projectTitle}`)
+        .then((res) => res.json())
+        .then((json) => {
+            user.title = json.name
+            user.description = json.description
+        })
+
+    fetch(
+        `https://api.github.com/repos/${username}/${projectTitle}/contributors`
+    )
+        .then((res) => res.json())
+        .then((json) => {
+            console.log(json)
+            for (let i = 0; i < json.length; i++) {
+                login.push(json[i].login)
             }
-        }
-    }
-
-    obj.contributers = arr2
-    return obj
+            console.log(login)
+            return getName(() => {
+                for (let j = 0; j < login.length; j++) {
+                    fetch(`https://api.github.com/users/${login[i]}`)
+                        .then((res) => res.json())
+                        .then((json) => {
+                            user.contributors.push(json.name)
+                        })
+                }
+            })
+        })
 }
 
 //returns project titile info

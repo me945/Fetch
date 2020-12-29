@@ -25,14 +25,25 @@ async function userProjects(username) {
     user.projects = []
 
     fetch(`https://api.github.com/users/${username}`)
-        .then((res) => res.json())
+        .then((res) => {
+            if (res.status === 200) {
+                return res.json()
+            } else {
+                return reject('did not find the user')
+            }
+        })
         .then((json) => {
             user.id = json.id
             user.name = json.name
+            return fetch(`https://api.github.com/users/${username}/repos`)
         })
-
-    fetch(`https://api.github.com/users/${username}/repos`)
-        .then((res) => res.json())
+        .then((res) => {
+            if (res.status === 200) {
+                return res.json()
+            } else {
+                return reject('did not find repo work')
+            }
+        })
         .then((json) => {
             for (let i = 0; i < json.length; i++) {
                 let project = {}
@@ -44,7 +55,9 @@ async function userProjects(username) {
         })
         .then(() => {
             console.log(user)
+            return JSON.stringify(user)
         })
+        .catch((error) => console.log(error))
 }
 
 // returns user projects that he/she contributed to

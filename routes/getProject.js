@@ -15,8 +15,8 @@ const fetch = require('node-fetch')
 //                                    ]
 //                  },
 //Projetcs/username - > returns json object with project's info
-function fetchProjectInfo(username, projectTitle) {
-    var user = {}
+async function fetchProjectInfo(username, projectTitle) {
+    let user = {}
     user.contributors = []
     let login = []
 
@@ -25,42 +25,85 @@ function fetchProjectInfo(username, projectTitle) {
     //https://api.github.com/repos/$(username)/$(projectTitle)/commits
     //https://api.github.com/repos/$(username)/$(projectTitle)/contributors
 
-    fetch(`https://api.github.com/repos/${username}/${projectTitle}/commits`)
-        .then((res) => res.json())
-        .then((json) => {
-            user.commits = json.length
-        })
-        .then(() => {
-            console.log(user)
-        })
+    //const fetchCommits = await
 
+    // .then(() => {
+    //     console.log(user)
+    // })
+    // fetch(`https://api.github.com/repos/${username}/${projectTitle}/commits`)
+    //     .then((res) => res.json())
+    //     .then((json) => {
+    //         //console.log(json)
+    //         user.commits = json.length
+    //     })
+    //const fetchProject = await
     fetch(`https://api.github.com/repos/${username}/${projectTitle}`)
-        .then((res) => res.json())
+        .then((res) => {
+            if (res.status === 200) {
+                return res.json()
+            } else {
+                return reject('did not find the project')
+            }
+        })
         .then((json) => {
+            //console.log(json)
             user.title = json.name
             user.description = json.description
+            return fetch(
+                `https://api.github.com/repos/${username}/${projectTitle}/commits`
+            )
         })
-
-    fetch(
-        `https://api.github.com/repos/${username}/${projectTitle}/contributors`
-    )
-        .then((res) => res.json())
+        .then((res) => {
+            if (res.status === 200) {
+                return res.json()
+            } else {
+                return reject('did not find commits')
+            }
+        })
         .then((json) => {
-            console.log(json)
+            //console.log(json)
+            user.commits = json.length
+            return fetch(
+                `https://api.github.com/repos/${username}/${projectTitle}/contributors`
+            )
+        })
+        // const fetchContributors = await
+        .then((res) => {
+            if (res.status === 200) {
+                return res.json()
+            } else {
+                return reject('did not find contributors names')
+            }
+        })
+        .then((json) => {
             for (let i = 0; i < json.length; i++) {
                 login.push(json[i].login)
             }
-            console.log(login)
-            return getName(() => {
-                for (let j = 0; j < login.length; j++) {
-                    fetch(`https://api.github.com/users/${login[i]}`)
-                        .then((res) => res.json())
-                        .then((json) => {
-                            user.contributors.push(json.name)
-                        })
-                }
-            })
         })
+        .then(() => {
+            for (let j = 0; j < login.length; j++) {
+                fetch(`https://api.github.com/users/${login[j]}`)
+                    .then((res) => res.json())
+                    .then((json) => {
+                        let object = {}
+                        //console.log(json)
+                        object.name = json.name
+                        user.contributors.push(object)
+                        console.log(user)
+                    })
+            }
+        })
+        .catch((error) => {
+            console.log(error)
+        })
+        .catch((error) => console.error(error))
+
+    //await new Promise((resolve, reject) => setTimeout(fetchContributors, 3000))
+    // const results = await Promise.all([
+    //     fetchCommits,
+    //     fetchProject,
+    //     fetchContributors,
+    // ])
 }
 
 //returns project titile info

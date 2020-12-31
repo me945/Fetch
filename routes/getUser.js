@@ -20,7 +20,7 @@ const fetch = require('node-fetch')
 //                   }]
 //                 }
 
-async function userProjects(username) {
+function userProjects(username) {
     var user = {}
     user.projects = []
 

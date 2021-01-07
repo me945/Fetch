@@ -1,29 +1,36 @@
 {
-  "name": "github-thingy",
-  "version": "1.0.0",
-  "description": "not sure",
-  "main": "index.js",
-  "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
-  },
-  "repository": {
-    "type": "git",
-    "url": "git+https://github.com/me945/stunning-sniffle.git"
-  },
-  "author": "me",
-  "license": "ISC",
-  "bugs": {
-    "url": "https://github.com/me945/stunning-sniffle/issues"
-  },
-  "homepage": "https://github.com/me945/stunning-sniffle#readme",
-  "dependencies": {
-    "axios": "^0.21.1",
-    "express": "^4.17.1",
-    "node": "^15.3.0",
-    "node-fetch": "^2.6.1"
-  },
-  "devDependencies": {
-    "nodemon": "^2.0.6",
-    "prettier": "2.2.1"
+    "name": "github-thingy",
+    "version": "1.0.0",
+    "description": "not sure",
+    "main": "index.js",
+    "scripts": {
+        "dev": "nodemon server.js",
+        "test": "mocha routes/**/*.test.js"
+    },
+    "repository": {
+        "type": "git",
+        "url": "git+https://github.com/me945/stunning-sniffle.git"
+    },
+    "author": "me",
+    "license": "ISC",
+    "bugs": {
+        "url": "https://github.com/me945/stunning-sniffle/issues"
+    },
+    "homepage": "https://github.com/me945/stunning-sniffle#readme",
+    "dependencies": {
+        "axios": "^0.21.1",
+        "express": "^4.17.1",
+        "node": "^15.3.0",
+        "node-fetch": "^2.6.1"
+    },
+    "devDependencies": {
+        "chai": "^4.2.0",
+        "chai-http": "^4.3.0",
+        "eslint": "^7.17.0",
+        "eslint-config-prettier": "^7.1.0",
+        "eslint-plugin-prettier": "^3.3.1",
+        "mocha": "^8.2.1",
+        "nodemon": "^2.0.6",
+              "prettier": "2.2.1"
   }
 }

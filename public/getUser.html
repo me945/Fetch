@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <link rel="stylesheet" href="style.css" type="text/css" />
+    </head>
+    <body class="body">
+        <div class="topnav">
+            <a href="#home">Not idea</a>
+            <a href="#news">Just learning</a>
+        </div>
+        <h3 class="center">Github API Data</h3>
+        <h3 class="center">This is a website to fetch users data</h3>
+        <div class="container my-5">
+            <button class="btn btn-primary my-3" id="btnUser">Get User</button>
+            <button class="btn btn-warning" id="getProject">Get Project</button>
+        </div>
+        <div class="container my-5">
+            <div class="card mt-3">
+                <div class="card-header">Username</div>
+                <div class="card-body">
+                    <pre id="username"></pre>
+                </div>
+            </div>
+            <div class="card mt-3">
+                <div class="card-header">Id</div>
+                <div class="card-body">
+                    <pre id="id"></pre>
+                </div>
+            </div>
+            <div class="card mt-3">
+                <div class="card-header">Projects</div>
+                <div class="card-body">
+                    <ul>
+                        <p><span id="project"></span></p>
+                    </ul>
+                </div>
+            </div>
+        </div>
+        <script>
+            btnUser.onclick = userProjects('me945')
+            function userProjects(username) {
+                let user = {}
+                user.projects = []
+                let promises = []
+                var luck = username
+                return fetch(`https://api.github.com/users/${username}`)
+                    .then((res) => {
+                        if (res.status === 200) {
+                            return res.json()
+                        } else {
+                            return 'did not find the user'
+                        }
+                    })
+                    .then((json) => {
+                        user.id = json.id
+                        user.name = json.name
+                        return fetch(
+                            `https://api.github.com/users/${username}/repos`
+                        )
+                    })
+                    .then((res) => {
+                        if (res.status === 200) {
+                            return res.json()
+                        } else {
+                            return 'did not find repo work'
+                        }
+                    })
+                    .then((json) => {
+                        for (let i = 0; i < json.length; i++) {
+                            let project = {}
+                            project.id = json[i].id
+                            project.name = json[i].name
+                            project.url = json[i].url
+                            promises.push(user.projects.push(project))
+                        }
+                        return Promise.all(promises).then(() => {
+                            document.getElementById('username').innerText = luck
+                            document.getElementById('id').innerText = user.id
+                            console.log(user)
+                            for (var i = 0; i < user.projects.length; i++) {
+                                document.getElementById('project').innerHTML +=
+                                    'Id: ' +
+                                    user.projects[i].id +
+                                    ' Name: ' +
+                                    user.projects[i].name +
+                                    ' ' +
+                                    'URL:: ' +
+                                    user.projects[i].url +
+                                    '<br>'
+                            }
+                        })
+                    })
+                    .catch((error) => console.log(error))
+            }
+        </script>
+    </body>
+</html>

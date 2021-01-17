@@ -71,7 +71,15 @@
         
         <!--Script starts here-->
         <script>
-            fetchProjectInfo('me945','Fetch')
+            
+            window.onload = function done(){
+                const url = new URL (window.location.href)
+                let userURL = url.searchParams.get("user").toString()
+                let projectURL = url.searchParams.get("project").toString()
+                console.log(userURL)
+                console.log(projectURL)
+                return fetchProjectInfo(userURL, projectURL)
+            }
             async function fetchProjectInfo(username, projectTitle) {
                 let user = {}
                 user.contributors = []
@@ -205,7 +213,6 @@
             function displayContributors(name){
                let spanning = document.createElement('li')
                    spanning.appendChild(document.createTextNode(name))
-
                    return spanning
             }
         </script>

@@ -126,13 +126,13 @@
                 getProjectName = document.getElementById(a.value).innerHTML
 
                 const myURL = new URL (window.location.href)
-                //myURL.pathname = 'getProject.html'
+                
+                //myURL.pathname = '/E:/VisualStudioCodeProjects/Backend/public/getProject.html'
                 myURL.pathname = 'getProject.html'
                 myURL.search = `user=${getUserName}&project=${getProjectName}`
                 
                 document.location.href = myURL
 
-                //s.search = `user=${getUserName}`
                 console.log(window.location.href)
                 console.log(getUserName)
             }   
@@ -172,8 +172,8 @@
                  const myURL = new URL (window.location.href)
                        //myURL.pathname = '/E:/VisualStudioCodeProjects/Backend/public/getProject.html'
                        myURL.search = `user=${getUserName}`
-
-                console.log (myURL)
+               
+                console.log (myURL.searchParams.get("user"))
             }
         </script>   
     </body>

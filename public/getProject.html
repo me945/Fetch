@@ -1,62 +1,83 @@
 <!DOCTYPE html>
 <html lang="en">
     <head>
-        <link rel="stylesheet" href="style.css" type="text/css" />
+        <link rel="stylesheet" href="style_2.css" type="text/css" />
+        <link rel="stylesheet" href="btnStyle.css" type="text/css" />
+        <link rel="stylesheet" href="Nav_Style.css" type="text/css" />
     </head>
-    <body class="body">
-        <div class="topnav">
-            <a href="#home">Not idea</a>
-            <a href="#news">Just learning</a>
-        </div>
-        <h3 class="center">Github API Data</h3>
-        <h3 class="center">This is a website to fetch users data</h3>
-        <div class="container my-5">
-            <button class="btn btn-primary my-3" id="btnUser">Get User</button>
-            <button class="btn btn-warning" id="getProject">Get Project</button>
-        </div>
-        <div class="container my-5">
-            <div class="card mt-3">
-                <div class="card-header">Username</div>
-                <div class="card-body">
-                    <p><span id="username"></span></p>
-                </div>
+    <body>
+         <!--Nav Bar-->
+        <nav>
+            <i class="fas fa-bars"></i>
+            <div class="nav-center">
+                <!-- links -->
+                <ul class="links">
+                  <li>
+                    <a   href="https://www.google.com/"
+                    target="_blank"
+                    >home</a>
+                  </li>
+                  <li>
+                    <a    href="https://www.freecodecamp.org/"
+                    target="_blank"
+                    >about</a>
+                  </li>
+                  <li>
+                    <a href="projects.html">projects</a>
+                  </li>
+                  <li>
+                    <a href="contact.html">contact</a>
+                  </li>
+                </ul>
             </div>
-            <div class="card mt-3">
-                <div class="card-header">Title name</div>
-                <div class="card-body">
-                    <p><span id="title"></span></p>
-                </div>
-            </div>
-            <div class="card mt-3">
-                <div class="card-header">Description</div>
-                <div class="card-body">
-                    <p><span id="description">okaay</span></p>
-                </div>
-            </div>
-            <div class="card mt-3">
-                <div class="card-header">Commits</div>
-                <div class="card-body">
-                    <p><span id="commits"></span></p>
-                </div>
-            </div>
-            <div class="card mt-3">
-                <div class="card-header">Contributors</div>
-                <div class="card-body">
-                    <ul>
-                        <p><span id="contributors"></span></p>
-                    </ul>
-                </div>
-            </div>
-        </div>
-        <script>
-            btnUser.onclick = fetchProjectInfo('me945', 'IOS_Calculator')
+        </nav>
+    </br>
+        <!-- End Nav Bar-->
 
+        <!-- title -->
+        <div class="title">
+            <h2>GitHub API</h2>
+            <h3 class="center">This is a website to fetch projects' data</h3>
+            <div class="underline"></div>
+        </br>
+            <h3 class="center" id="title"></h3>
+        </div>
+        <!--End title -->
+
+            <article class="review center-modified">
+                <!-- <h4>Title</h4>
+                <div class="card-header project-title project" id="title"></div>
+                </br> -->
+                <h4>description</h4>
+                <div class="card-header project-title project" id="description"></div>
+                </br>
+                <h4>commits</h4>
+                <div class="card-header project-title project" id="commits"></div>
+                </br>
+                <h4>contributors</h4>
+                <div class="card-header project-title project">
+                    <ul id="contributors" style="text-align: left;"></ul>
+                </div>
+                </br>
+            </article>
+        <!-- const queryString = window.location.search;
+
+        const urlParams = new URLSearchParams(queryString);
+
+        const page_type = urlParams.get('page_type')
+
+        console.log(page_type); -->
+
+        
+        <!--Script starts here-->
+        <script>
+            fetchProjectInfo('me945','Fetch')
             async function fetchProjectInfo(username, projectTitle) {
                 let user = {}
                 user.contributors = []
                 let login = []
                 let promises = []
-                var luck = username
+                let luck = username
                 return Promise.all([
                     // promise 1
                     fetch(
@@ -169,16 +190,23 @@
                         }),
                 ]).then(() => {
                     let c = []
-                    document.getElementById('username').innerText = luck
                     document.getElementById('title').innerText = user.title
                     document.getElementById('description').innerText =
                         user.description
                     document.getElementById('commits').innerText = user.commits
                     for (let i = 0; i < user.contributors.length; i++) {
-                        document.getElementById('contributors').innerHTML +=
-                            user.contributors[i].name
+                        document.getElementById("contributors").appendChild(displayContributors(user.contributors[i].name));
+
                     }
                 })
+            }
+
+            //span function
+            function displayContributors(name){
+               let spanning = document.createElement('li')
+                   spanning.appendChild(document.createTextNode(name))
+
+                   return spanning
             }
         </script>
     </body>

@@ -2,9 +2,9 @@
     "name": "github-thingy",
     "version": "1.0.0",
     "description": "not sure",
-    "main": "index.js",
+    "main": "server.js",
     "scripts": {
-        "dev": "nodemon server.js",
+        "dev": "node server.js",
         "test": "mocha routes/**/*.test.js"
     },
     "repository": {
@@ -26,11 +26,12 @@
     "devDependencies": {
         "chai": "^4.2.0",
         "chai-http": "^4.3.0",
+        "ejs": "^3.1.5",
         "eslint": "^7.17.0",
         "eslint-config-prettier": "^7.1.0",
         "eslint-plugin-prettier": "^3.3.1",
         "mocha": "^8.2.1",
         "nodemon": "^2.0.6",
-              "prettier": "2.2.1"
-  }
+        "prettier": "2.2.1"
+    }
 }

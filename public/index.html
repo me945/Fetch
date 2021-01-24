@@ -68,11 +68,25 @@
 
         <!--Script starts here-->
         <script>
+            function getQueryString(key){
+                let query = window.location.search.substring(1);
+                let vars = query.split("&")
+                for(let i =0; i <vars.length;i++){
+                    var pair = vars[i].split("=")
+                    if(pair[0]==key){
+                        return pair[1]
+                    }
+                }
+            }
+
             //Global varibales
             let getUserName = " ";
             let getProjectName  = " ";
+            userProjects(getQueryString('user'))
+            //userProjects('me945')
 
-            userProjects('me945')
+            const url = new URL(window.location.href)
+                let userURL = url.searchParams.get("user").toString()
             function userProjects(username) {
                 let user = {}
                 user.projects = []
@@ -131,7 +145,7 @@
                 myURL.pathname = 'getProject.html'
                 myURL.search = `user=${getUserName}&project=${getProjectName}`
                 
-                document.location.href = myURL
+                window.location.href = myURL
 
                 console.log(window.location.href)
                 console.log(getUserName)

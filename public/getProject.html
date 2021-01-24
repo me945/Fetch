@@ -88,8 +88,7 @@
                 let luck = username
                 return Promise.all([
                     // promise 1
-                    fetch(
-                        `https://api.github.com/repos/${username}/${projectTitle}`,
+                    fetch(`projects/${username}/${projectTitle}`,
                         {
                             // headers: {
                             //     Authorization:

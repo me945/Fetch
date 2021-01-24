@@ -1,7 +1,5 @@
 const express = require('express')
 const router = express.Router({ mergeParams: true })
-const { users, projects, contributes_on } = require('../project')
-const { resolve } = require('path')
 const fetch = require('node-fetch')
 
 //---------Find the projects the user is coontibuting to-----------------------------------------
@@ -19,17 +17,17 @@ const fetch = require('node-fetch')
 //                    "url" : /projects/name/second_project
 //                   }]
 //                 }
-
 function userProjects(username) {
-    var user = {}
+    let user = {}
     user.projects = []
+    let promises = []
 
-    fetch(`https://api.github.com/users/${username}`)
+    return fetch(`https://api.github.com/users/${username}`)
         .then((res) => {
             if (res.status === 200) {
                 return res.json()
             } else {
-                return reject('did not find the user')
+                return 'did not find the user'
             }
         })
         .then((json) => {
@@ -41,7 +39,7 @@ function userProjects(username) {
             if (res.status === 200) {
                 return res.json()
             } else {
-                return reject('did not find repo work')
+                return 'did not find repo work'
             }
         })
         .then((json) => {
@@ -50,12 +48,11 @@ function userProjects(username) {
                 project.id = json[i].id
                 project.name = json[i].name
                 project.url = json[i].url
-                user.projects.push(project)
+                promises.push(user.projects.push(project))
             }
-        })
-        .then(() => {
-            console.log(user)
-            return JSON.stringify(user)
+            return Promise.all(promises).then(() => {
+                return user
+            })
         })
         .catch((error) => console.log(error))
 }
@@ -63,15 +60,20 @@ function userProjects(username) {
 // returns user projects that he/she contributed to
 router.get('/', (req, res) => {
     const username = req.params.username
-    const userInfo = userProjects(username)
-
-    if (!userInfo) {
-        res.status(404).send('project not found.')
-    } else {
-        // res.setHeader('content-type', 'application/json')
-        //res.send(JSON.Stringfy(userInfo,null,4))
-        res.send(userInfo)
-    }
+    userProjects(username).then((userInfo) => {
+        if (!userInfo) {
+            res.status(404).send('User not found.')
+        } else {
+            // res.setHeader('content-type', 'application/json')
+            //res.send(JSON.Stringfy(userInfo, null, 4))
+            // res.render('getUser', {
+            //     id: userInfo.id,
+            //     username: userInfo.name,
+            //     projects: userInfo.projects,
+            // })
+            res.send(userInfo)
+        }
+    })
 })
 
 module.exports = router

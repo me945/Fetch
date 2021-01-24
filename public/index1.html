@@ -1,0 +1,86 @@
+<html>
+    <head> </head>
+    <body>
+        <h1>This is my awesome website</h1>
+        <!-- <h1>Github API Data</h1>
+        <div id="username">Id:</div>
+        <div id="username">User Name:</div>
+        <div id="project">Projects:</div>
+        <div id="Contributor">Contributors</div>
+        <div id="pokeData"></div> -->
+        <button id="btn">Load Data</button>
+        <script>
+            // pokeData.innerText = 'pokemon are awesome'
+
+            // frontend api requests
+            // GET POST PUT DELETE - libraries - AXIOS - react, JQUERY - csit128 - slow,
+            // GET - fetch **
+            // backend api requests
+            // GET POST PUT DELETE - npm libraries like - request , got
+
+            async function getPokemonData(url) {
+                const pokemon = await fetch(url)
+                return pokemon
+            }
+
+            let pokeIndex = 1
+            btn.onclick = function () {
+                for (let i = 1; i <= 10; i++) {
+                    getPokemonData(
+                        `https://pokeapi.co/api/v2/pokemon/${pokeIndex + i}`
+                    )
+                        .then((pokemon) => {
+                            if (pokemon.status === 200) return pokemon.json()
+                            else pokeData.innerText = 'failed to load data'
+                        })
+                        .then((pokemon) => {
+                            // <h1>bulbasaur</h1>
+                            const pokeHeader = document.createElement('h1')
+                            pokeHeader.innerText = pokemon.name
+                            // <img src="pokeSprite">
+                            const pokeImage = document.createElement('img')
+                            pokeImage.setAttribute(
+                                'src',
+                                pokemon.sprites.front_default
+                            )
+                            pokeData.appendChild(pokeHeader)
+                            pokeData.appendChild(pokeImage)
+                        })
+                }
+                pokeIndex = pokeIndex + 10
+            }
+
+            // // fetch(url , function(data){
+            // //     fetch(url2, function(data2) {
+            // //         fetch(url3, function(data3){
+
+            // //         })
+            // //     })
+            // // })
+            // // //es 5-6
+            // // const promise = new Promise((resolve, reject)=>{
+            // //     fetch(url, resolve)
+            // // })
+            // // promise.then(()=>{
+
+            // // }).then(()=>{
+
+            // // })
+
+            // // fetch(url).then((data)=>{
+            // //     return data
+            // // }).then((data)=>{
+
+            // // })
+            // // // es6-7
+            // // async function getData() {
+            // //     const user = await fetch(user)
+            // //     const project = await fetch(project)
+            // //     return {user: user, project:project}
+            // // }
+            // // getData().then(()=>{
+            // //     console.log(data)
+            // // })
+        </script>
+    </body>
+</html>

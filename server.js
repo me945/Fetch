@@ -1,28 +1,43 @@
-const { users, projects, contributes_on } = require('./project')
+// const { users, projects, contributes_on } = require('./project')
+// const axios = require('axios')
+// const http = require('http')
+// const fs = require('fs')
 const getUserRoute = require('./routes/getUser')
 const getProjectRoute = require('./routes/getProject')
 var express = require('express')
 var path = require('path')
-const axios = require('axios')
 const app = express()
 const PORT = 3000
 
 app.set('json spaces', 4)
+app.set('view engine', 'ejs')
 
-app.get('/', (req, res) => {
-    //res.redirect('/projects/first')
-    res.status(200).send('Server is running.')
-})
+//create a server
+// const server = http.createServer((req, res) => {
+//     res.writeHead(200, { 'Content-Type': 'text/html' })
+//     fs.readFile('/public/gitHub.html')
 
-app.get('/project', (req, res) => {
-    res.json(projects)
-})
+//     res.end()
+// })
 
-app.use(express.static(path.join(__dirname + '/public/')))
+// server.listen(PORT, (error) => {
+//     if (error) {
+//         console.log('something is wrong')
+//     } else {
+//         console.log(`Server running on: http://localhost: ${PORT}`)
+//     }
+// })
+
+//Home page
+// app.use('/', (req, res) => {
+//     res.status(200).sendFile(path.join(__dirname + '/public/getUser.html'))
+// })
+
+app.use('/', express.static(path.join(__dirname + '/public/')))
 app.use('/projects/:username', getUserRoute)
 app.use('/projects/:username/:project_title', getProjectRoute)
 
-app.listen(PORT, () => {
+module.exports = app.listen(PORT, () => {
     console.log(`Server running on: http://localhost: ${PORT}`)
 })
 
@@ -54,3 +69,5 @@ app.listen(PORT, () => {
 /* 
    for each user url: (https://api.github.com/users/me945) -> name: "Mahmoud"
 */
+
+// Event listeners

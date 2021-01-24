@@ -31,12 +31,12 @@ async function getContributors(url) {
     return contribution
 }
 
-function fetchProjectInfo(username, projectTitle) {
+async function fetchProjectInfo(username, projectTitle) {
     let user = {}
     user.contributors = []
     let login = []
     let promises = []
-    fetch(`https://api.github.com/repos/${username}/${projectTitle}`)
+    await fetch(`https://api.github.com/repos/${username}/${projectTitle}`)
         .then((res) => {
             if (res.status === 200) {
                 return res.json()
@@ -52,7 +52,9 @@ function fetchProjectInfo(username, projectTitle) {
         .catch((error) => {
             console.log(error)
         })
-    fetch(`https://api.github.com/repos/${username}/${projectTitle}/commits`)
+    await fetch(
+        `https://api.github.com/repos/${username}/${projectTitle}/commits`
+    )
         .then((res) => {
             if (res.status === 200) {
                 return res.json()
@@ -68,7 +70,7 @@ function fetchProjectInfo(username, projectTitle) {
             console.log(error)
         })
 
-    fetch(
+    await fetch(
         `https://api.github.com/repos/${username}/${projectTitle}/contributors`
     )
         // const fetchContributors = await
@@ -96,19 +98,20 @@ function fetchProjectInfo(username, projectTitle) {
                         })
                 )
             }
-            Promise.all(promises).then(() => console.log(user))
+            return Promise.all(promises).then(() => console.log(user))
         })
 
         .catch((error) => {
             console.log(error)
         })
+    return user
 }
 
 //returns project titile info
-router.get('/', (req, res) => {
+router.get('/', async (req, res) => {
     const projectTitle = req.params.project_title
     const username = req.params.username
-    const project = fetchProjectInfo(username, projectTitle)
+    const project = await fetchProjectInfo(username, projectTitle)
 
     if (!project) {
         res.status(404).send('Project not found.')

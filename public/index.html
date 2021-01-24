@@ -68,17 +68,31 @@
 
         <!--Script starts here-->
         <script>
+            function getQueryString(key) {
+                var query = window.location.search.substring(1);
+                var vars = query.split("&");
+                for (var i = 0; i < vars.length; i++) {
+                    var pair = vars[i].split("=");
+                    if (pair[0] == key) {
+                        return pair[1];
+                    }
+                }
+            }
             //Global varibales
             let getUserName = " ";
             let getProjectName  = " ";
-
-            userProjects('me945')
+            // console.log(getQuerySwindow.location.search);
+            // console.log(getQueryString('user'));
+            userProjects(getQueryString('user'))
+            
+            const url = new URL (window.location.href)
+                let userURL = url.searchParams.get("user").toString()
             function userProjects(username) {
                 let user = {}
                 user.projects = []
                 let promises = []
                 getUserName = username
-                return fetch(`https://api.github.com/users/${username}`)
+                return fetch(`/projects/${username}`)
                     .then((res) => {
                         if (res.status === 200) {
                             return res.json()
@@ -87,35 +101,14 @@
                         }
                     })
                     .then((json) => {
-                        user.id = json.id
-                        user.name = json.name
-                        return fetch(
-                            `https://api.github.com/users/${username}/repos`
-                        )
-                    })
-                    .then((res) => {
-                        if (res.status === 200) {
-                            return res.json()
-                        } else {
-                            return 'did not find repo work'
+                        console.log('humaid')
+                        console.log(json)
+                        document.getElementById('username').innerText = json.name
+                        document.getElementById('id').innerText = json.id
+                        console.log(json)
+                        for (let i = 0; i < json.projects.length; i++) {
+                            document.getElementById("example").appendChild(anything(json.projects[i].name,i));
                         }
-                    })
-                    .then((json) => {
-                        for (let i = 0; i < json.length; i++) {
-                            let project = {}
-                            project.id = json[i].id
-                            project.name = json[i].name
-                            project.url = json[i].url
-                            promises.push(user.projects.push(project))
-                        }
-                        return Promise.all(promises).then(() => {
-                            document.getElementById('username').innerText = getUserName
-                            document.getElementById('id').innerText = user.id
-                            console.log(user)
-                            for (let i = 0; i < user.projects.length; i++) {
-                                document.getElementById("example").appendChild(anything(user.projects[i].name,i));
-                            }
-                        })
                     })
                     .catch((error) => console.log(error))
             }

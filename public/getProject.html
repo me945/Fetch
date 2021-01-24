@@ -76,127 +76,14 @@
                 const url = new URL (window.location.href)
                 let userURL = url.searchParams.get("user").toString()
                 let projectURL = url.searchParams.get("project").toString()
-                console.log(userURL)
-                console.log(projectURL)
-                return fetchProjectInfo(userURL, projectURL)
+                fetchProjectInfo(userURL, projectURL)
             }
-            async function fetchProjectInfo(username, projectTitle) {
-                let user = {}
-                user.contributors = []
-                let login = []
-                let promises = []
-                let luck = username
-                return Promise.all([
-                    // promise 1
-                    fetch(
-                        `https://api.github.com/repos/${username}/${projectTitle}`,
-                        {
-                            // headers: {
-                            //     Authorization:
-                            //         'token ' + process.env.GITHUB_API_TOKEN,
-                            // },
-                        }
-                    )
-                        .then((res) => {
-                            if (res.status === 200) {
-                                return res.json()
-                            } else {
-                                return 'did not find the project'
-                            }
-                        })
-                        .then((json) => {
-                            //console.log(json)
-                            user.title = json.name
-                            user.description = json.description
-                        })
-                        .catch((error) => {
-                            console.log(error)
-                        }),
-                    // promise 2
-                    fetch(
-                        `https://api.github.com/repos/${username}/${projectTitle}/commits?per_page=1`,
-                        {
-                            // headers: {
-                            //     Authorization:
-                            //         'token ' + process.env.GITHUB_API_TOKEN,
-                            // },
-                        }
-                    )
-                        .then((res) => {
-                            if (res.status === 200) {
-                                return res.headers
-                            } else {
-                                return 'did not find commits'
-                            }
-                        })
-                        .then((object) => {
-                            const link = object.get('link')
-                            const links = link.split(', ')
-                            const lastLink = links[links.length - 1]
-                            const pageNumberString = lastLink.slice(
-                                lastLink.indexOf('&page=') + 6,
-                                lastLink.indexOf('>')
-                            )
-                            const pageNumber = Number(pageNumberString)
-                            user.commits = pageNumber
-                        })
-                        .catch((error) => {
-                            console.log(error)
-                        }),
-                    // promise 3
-                    fetch(
-                        `https://api.github.com/repos/${username}/${projectTitle}/contributors`,
-                        {
-                            // headers: {
-                            //     Authorization:
-                            //         'token ' + process.env.GITHUB_API_TOKEN,
-                            // },
-                        }
-                    )
-                        // const fetchContributors = await
-                        .then((res) => {
-                            if (res.status === 200) {
-                                return res.json()
-                            } else {
-                                return 'did not find contributors names'
-                            }
-                        })
-                        .then((json) => {
-                            for (let i = 0; i < json.length; i++) {
-                                login.push(json[i].login)
-                            }
-                        })
-                        .then(() => {
-                            for (let j = 0; j < login.length; j++) {
-                                promises.push(
-                                    fetch(
-                                        `https://api.github.com/users/${login[j]}`,
-                                        {
-                                            // headers: {
-                                            //     Authorization:
-                                            //         'token ' +
-                                            //         process.env
-                                            //             .GITHUB_API_TOKEN,
-                                            // },
-                                        }
-                                    )
-                                        .then((res) => res.json())
-                                        .then((json) => {
-                                            let object = {}
-                                            object.name = json.name
-                                            user.contributors.push(object)
-                                        })
-                                )
-                            }
-                            return Promise.all(promises).then(() => {
-                                //console.log(user)
-                                return user
-                            })
-                        })
-                        .catch((error) => {
-                            console.log(error)
-                        }),
-                ]).then(() => {
+            function fetchProjectInfo(username, projectTitle) {
+                console.log('fetching...')
+                fetch(`/projects/${username}/${projectTitle}`)
+                    .then((res)=>res.json())
+                    .then((user) => {
+                    console.log(user)
                     let c = []
                     document.getElementById('title').innerText = user.title
                     document.getElementById('description').innerText =

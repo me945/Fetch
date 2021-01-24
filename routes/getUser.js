@@ -20,11 +20,10 @@ const fetch = require('node-fetch')
 //                   }]
 //                 }
 
-function userProjects(username) {
+async function userProjects(username) {
     var user = {}
     user.projects = []
-
-    fetch(`https://api.github.com/users/${username}`)
+    return fetch(`https://api.github.com/users/${username}`)
         .then((res) => {
             if (res.status === 200) {
                 return res.json()
@@ -54,17 +53,15 @@ function userProjects(username) {
             }
         })
         .then(() => {
-            console.log(user)
             return JSON.stringify(user)
         })
         .catch((error) => console.log(error))
 }
 
 // returns user projects that he/she contributed to
-router.get('/', (req, res) => {
+router.get('/', async (req, res) => {
     const username = req.params.username
-    const userInfo = userProjects(username)
-
+    const userInfo = await userProjects(username)
     if (!userInfo) {
         res.status(404).send('project not found.')
     } else {

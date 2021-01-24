@@ -9,10 +9,10 @@ const PORT = 3000
 
 app.set('json spaces', 4)
 
-app.get('/', (req, res) => {
-    //res.redirect('/projects/first')
-    res.status(200).send('Server is running.')
-})
+// app.get('/', (req, res) => {
+//     //res.redirect('/projects/first')
+//     res.status(200).send('Server is running.')
+// })
 
 app.get('/project', (req, res) => {
     res.json(projects)

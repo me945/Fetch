@@ -48,7 +48,7 @@
             <!-- Profile -->
             <article class="review">
                 <div class="img-container">
-                    <img src="450.png" id="person-img" alt="" />
+                    <img  id="person-img" alt="" />
                 </div>
                 <h4 id="username">User Name</h4>
                 <p id="id">Id</p>
@@ -68,6 +68,13 @@
 
         <!--Script starts here-->
         <script>
+
+            // window.onload = function(){
+            //     const url = new URL (window.location.href)
+            //     let userURL = url.searchParams.get("user").toString()
+            //     getPciture (userURL)
+            // }
+
             function getQueryString(key){
                 let query = window.location.search.substring(1);
                 let vars = query.split("&")
@@ -82,11 +89,14 @@
             //Global varibales
             let getUserName = " ";
             let getProjectName  = " ";
+
             userProjects(getQueryString('user'))
             //userProjects('me945')
 
             const url = new URL(window.location.href)
-                let userURL = url.searchParams.get("user").toString()
+            let userURL = url.searchParams.get("user").toString()
+            getPciture (userURL)
+
             function userProjects(username) {
                 let user = {}
                 user.projects = []
@@ -151,17 +161,23 @@
             }
 
             //dont mind this i am just learning
-            window.onload = function(){
+            // window.onload = function(){
                 
-                const urlParams = new URLSearchParams({    
-                    user: `${getUserName}`
-                })
+            //     const urlParams = new URLSearchParams({    
+            //         user: `${getUserName}`
+            //     })
 
-                 const myURL = new URL (window.location.href)
-                       myURL.search = `user=${getUserName}`
+            //      const myURL = new URL (window.location.href)
+            //            myURL.search = `user=${getUserName}`
                
-                console.log (myURL.searchParams.get("user"))
-            }
+            //     console.log (myURL.searchParams.get("user"))
+            // }
+
+            //fetch picture
+            function getPciture (username){
+                document.getElementById('person-img').src = `https://github.com/${username}.png`
+                 }
+            
         </script>   
     </body>
 </html>

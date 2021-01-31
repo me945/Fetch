@@ -1,0 +1,16 @@
+.review {
+    background: var(--clr-white);
+    padding: 1.5rem 2rem;
+    border-radius: var(--radius);
+    /* box-shadow: var(--light-shadow); */
+    transition: var(--transition);
+    text-align: center;
+}
+
+.center-modified {
+    text-align: center;
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
+    width: 60%;
+}

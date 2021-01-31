@@ -1,0 +1,18 @@
+.form-control label {
+    display: block;
+}
+
+.form-control input {
+    width: 100%;
+    font-size: 17px;
+}
+
+.btn-align {
+    margin-top: 10px;
+    margin-left: 90px;
+}
+
+.form-container {
+    max-width: 300px;
+    margin: 30px auto;
+}

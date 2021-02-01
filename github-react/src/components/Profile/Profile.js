@@ -13,8 +13,9 @@ const Profile = () => {
                             alt=" not found"
                         />
                     </div>
-                    <h4 id="username">User Name</h4>
-                    <p id="id">Id</p>
+
+                    <h4 id="username"></h4>
+                    <p id="id"></p>
                 </article>
             </section>
         </div>

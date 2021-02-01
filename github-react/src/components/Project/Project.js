@@ -1,20 +1,20 @@
 import './Project.css'
 
-const Project = ({ projects, getProjectName }) => {
+const Project = ({ userProjects, getProjectName }) => {
     return (
         <>
-            {projects.map((projects) => (
+            {userProjects.map((userProjects) => (
                 <div
                     style={{ marginBottom: '1px' }}
                     className="card-header project-title project"
-                    key={projects.text}
+                    key={userProjects.text}
                 >
-                    <span>{projects.text} </span>
+                    <span>{userProjects.text} </span>
                     <button
-                        key={projects.id}
+                        key={userProjects.id}
                         style={{ cursor: 'pointer' }}
                         className="btn btn-primary"
-                        onClick={() => getProjectName(projects.text)}
+                        onClick={() => getProjectName(userProjects.name)}
                     >
                         {' '}
                         View

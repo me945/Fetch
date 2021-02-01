@@ -1,43 +1,43 @@
-import Nav from './components/Nav.js'
-import Title from './components/Title.js'
-import GetName from './components/GetName.js'
-import Profile from './components/Profile.js'
-import ProjectsList from './components/ProjectsList.js'
-import { useState } from 'react'
+import { useState, useEffect } from 'react'
+import Nav from './components/Nav/Nav.js'
+import Title from './components/Title/Title.js'
+import Profile from './components/Profile/Profile.js'
+import ProjectsList from './components/Project/ProjectsList.js'
 
 function App() {
-    //set of data
-    const [projects, setTask] = useState([
-        { id: 1, text: 'storIT' },
-        { id: 2, text: 'iOS-Calculator' },
-        { id: 3, text: 'whatever' },
-    ])
-    let x = 0
-    // let f = 'hello'
+    //get the username from the url
+    const url = new URL(window.location.href)
+    let userURL = url.searchParams.get('user').toString()
 
-    const getListOfProjects = () => {
-        userProjects('me945')
-        function userProjects(username) {
-            let user = {}
-            user.projects = []
-            //getUserName = username
-            return fetch(`projects/${username}`)
-                .then((res) => {
-                    if (res.status === 200) {
-                        return res.json()
-                    } else {
-                        return 'did not find the user'
-                    }
-                })
-                .then((json) => {
-                    console.log(json)
-                })
-                .catch((error) => console.log(error))
+    //state that holds the user object
+    const [userInfo, setUserInfo] = useState([])
+
+    //set the user object to useState
+    useEffect(() => {
+        const getUserInfo = async () => {
+            const infoFromServer = await fetchUser()
+            setUserInfo(infoFromServer)
         }
+        getUserInfo()
+    }, [])
+
+    var userProjects = {}
+    //Fetch user information from the server
+    const fetchUser = async () => {
+        const fetchData = await fetch(
+            `http://localhost:3000/projects/${userURL}`
+        )
+        const data = await fetchData.json()
+
+        userProjects = data.projects
+        console.log(userProjects)
+        return data
     }
 
+    let x = 0
+
     //pass username
-    const getUserName = () => {
+    const onPress = () => {
         //check if the user entered a username
 
         // if (!a === f) {
@@ -59,9 +59,8 @@ function App() {
         <div className="App">
             <Nav />
             <Title />
-            <GetName getUserName={getUserName} />
             <Profile />
-            <ProjectsList projects={projects} getProjectName={getProjectName} />
+            <ProjectsList projects={userInfo} getProjectName={getProjectName} />
         </div>
     )
 }

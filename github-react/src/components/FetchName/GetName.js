@@ -1,5 +1,6 @@
 import './GetName.css'
-const AddName = ({ getUserName }) => {
+
+const AddName = ({ onPress }) => {
     return (
         <div className="form-container">
             <div className="form-control ">
@@ -7,7 +8,7 @@ const AddName = ({ getUserName }) => {
                 <input type="text" placeholder="Enter Username"></input>
                 <button
                     className="btn btn-primary btn-align"
-                    onClick={() => getUserName()}
+                    onClick={() => onPress()}
                 >
                     {' '}
                     Fetch Data

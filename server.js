@@ -1,13 +1,10 @@
-// const { users, projects, contributes_on } = require('./project')
-// const axios = require('axios')
-// const http = require('http')
-// const fs = require('fs')
 const getUserRoute = require('./routes/getUser')
 const getProjectRoute = require('./routes/getProject')
 var express = require('express')
 var path = require('path')
 const app = express()
 const PORT = 3000
+const cors = require('cors')
 
 app.set('json spaces', 4)
 app.set('view engine', 'ejs')
@@ -30,9 +27,9 @@ app.set('view engine', 'ejs')
 
 //Home page
 // app.use('/', (req, res) => {
-//     res.status(200).sendFile(path.join(__dirname + '/public/getUser.html'))
+//     res.status(200).send('hello')
 // })
-
+app.use(cors('hhtp://localhost/*'))
 app.use('/', express.static(path.join(__dirname + '/public/')))
 app.use('/projects/:username', getUserRoute)
 app.use('/projects/:username/:project_title', getProjectRoute)

@@ -73,7 +73,7 @@ nav {
     font-size: 1rem;
     text-transform: capitalize;
     letter-spacing: var(--spacing);
-    display: block;
+    display: flex;
     padding: 0.5rem 1rem;
     transition: var(--transition);
 }
@@ -92,7 +92,6 @@ nav {
 }
 @media screen and (min-width: 800px) {
     .nav-center {
-        max-width: 1170px;
         margin: 1 auto;
         display: flex;
         align-items: center;
@@ -110,7 +109,7 @@ nav {
         display: flex;
     }
     .links a {
-        align-items: center;
+        align-items: auto;
         padding: 0;
         margin: 0 0.5rem;
     }
@@ -118,4 +117,9 @@ nav {
         padding: 0;
         background: transparent;
     }
+}
+
+.search-one {
+    display: flex;
+    justify-content: space-around;
 }

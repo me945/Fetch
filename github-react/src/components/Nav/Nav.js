@@ -1,6 +1,7 @@
 import React from 'react'
 import './Nav.css'
-const Nav = () => {
+import '../Project/Project.css'
+const Nav = ({ onChange, onClick, userName }) => {
     return (
         <div>
             <nav>
@@ -26,16 +27,58 @@ const Nav = () => {
                             </a>
                         </li>
                         <li>
-                            <a href="projects.html">projects</a>
+                            <a
+                                href="https://www.google.com/"
+                                target="_blank"
+                                rel="noopener noreferrer"
+                            >
+                                projects
+                            </a>
                         </li>
                         <li>
-                            <a href="contact.html">contact</a>
+                            <a
+                                href="https://www.google.com/"
+                                target="_blank"
+                                rel="noopener noreferrer"
+                            >
+                                contact
+                            </a>
                         </li>
                     </ul>
+                    <li
+                        style={{
+                            display: 'flex',
+                            justifyContent: 'flex-end',
+                        }}
+                    >
+                        <div>
+                            <div className="ui action input">
+                                <input
+                                    type="text"
+                                    placeholder="Search..."
+                                    value={userName}
+                                    onChange={onChange}
+                                ></input>
+                                <button
+                                    className="ui icon button"
+                                    type="submit"
+                                    onClick={onClick}
+                                >
+                                    <i className="search icon"></i>
+                                </button>
+                            </div>
+                        </div>
+                    </li>
                 </div>
             </nav>
         </div>
     )
+
+    function Home() {
+        const myURL = new URL(window.location.href)
+        myURL.pathname = 'home'
+        window.location.href = myURL
+    }
 }
 
 export default Nav

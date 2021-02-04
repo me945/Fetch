@@ -155,13 +155,13 @@
 /*Grey Button*/
 .btn-secondary {
     color: #fff;
-    background-color: #6c757d;
-    border-color: #6c757d;
+    background-color: #cdcdcd;
+    border-color: #cdcdcd;
 }
 .btn-secondary:hover {
     color: #fff;
-    background-color: #5a6268;
-    border-color: #545b62;
+    background-color: #a4a4a4;
+    border-color: #a4a4a4;
 }
 .btn-secondary.focus,
 .btn-secondary:focus {

@@ -8,7 +8,6 @@ const Title = () => {
             <br />
             <h2>GitHub API</h2>
             <div className="underline"></div>
-            <br />
         </div>
     )
 }

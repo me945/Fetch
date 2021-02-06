@@ -74,7 +74,17 @@ function App() {
                     onClick={onClickHandler}
                     userName={username}
                 />
-                <Route path="/" component={Title} />
+                <Route
+                    path="/"
+                    exact
+                    render={() => (
+                        <Title
+                            onChange={onChangeHandler}
+                            onClick={onClickHandler}
+                            userName={username}
+                        />
+                    )}
+                />
                 <Route path="/userinfo" component={Profile} />
                 <Route path="/projectinfo" component={ProjectInfo} />
                 {/* <Profile userinfo={userInfo} userName={username} /> */}

@@ -48,6 +48,7 @@ main {
     margin-left: auto;
     margin-right: auto;
     width: 40%;
+    padding-top: 20px;
 }
 #person-img {
     width: 100%;

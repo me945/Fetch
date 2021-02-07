@@ -5,12 +5,18 @@ A web application that fetches and displays Github user's information
 ## To run this project
 
 Set environment variable
-
+```
 > export GITHUB_API_TOKEN=XXXX
 > nodemon server.js
-
+```
+Before running the project
+```
+npm i 
+cd github-react & npm i
+```
 To run project
 ```
+npm start
 cd github-react & npm start/yarn start
 ```
 To create a production build

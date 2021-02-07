@@ -10,21 +10,17 @@ Set environment variable
 > nodemon server.js
 
 To run project
-
 ```
-> cd github-react & npm start/yarn start
+cd github-react & npm start/yarn start
 ```
-
 To create a production build
-
 ```
-> node start
-> cd github-react & yarn build
-
+node start
+cd github-react & yarn build
 ```
 
 ## Technologies used
-
+```
 Node - JS runtime
 Express - server
 Reactjs - front-end
@@ -35,7 +31,7 @@ Eslint - look for errors
 Mocha - to run tests
 Chai - to write tests
 Chai-http - server testing
-
+```
 ## Done
 
 Github project api
@@ -65,3 +61,9 @@ Load Project info for user
     commits
 
     contributors
+
+![](Images/Screenshot1.png)
+
+![](Images/Screenshot2.png)
+
+![](Images/Screenshot3.png)

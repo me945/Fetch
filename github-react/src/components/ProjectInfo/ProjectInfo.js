@@ -1,6 +1,6 @@
 import './ProjectInfo.css'
 import { useState, useEffect, useRef } from 'react'
-
+import { Link } from 'react-router-dom'
 function ProjectInfo(props) {
     //get username & project from the url
     //const url = new URL(window.location.href)
@@ -10,6 +10,9 @@ function ProjectInfo(props) {
     //get username & project from the url
     let userURL = useRef(props.location.search.split(/[=,&]+/)[1])
     let projectURL = useRef(props.location.search.split(/[=,&]+/)[3])
+
+    //Html link for the project
+    let HTML = `https://github.com/${userURL.current}/${projectURL.current}`
 
     //state that holds the project's infromation
     const [project, setProject] = useState([])
@@ -28,6 +31,7 @@ function ProjectInfo(props) {
             )
             const data = await fetchInfo.json()
 
+            console.log(data)
             return data
         }
         getProjectInfo()
@@ -35,6 +39,7 @@ function ProjectInfo(props) {
 
     return (
         <div style={{ textAlign: 'center' }}>
+            <br />
             <h4>Description: </h4>
             <span>{project.description}</span>
             <h4>Project Title: </h4>
@@ -49,6 +54,15 @@ function ProjectInfo(props) {
                     </div>
                 ))}
             </div>
+            <br />
+            <a
+                style={{ fontSize: 18 }}
+                href={HTML}
+                target="_blank"
+                rel="noopener noreferrer"
+            >
+                {<strong>More info</strong>}
+            </a>
         </div>
     )
 }

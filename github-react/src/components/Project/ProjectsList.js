@@ -1,7 +1,7 @@
 import './ProjectsList.css'
 import Project from './Project.js'
 
-const Projects = ({ userProjects, getProjectName }) => {
+const Projects = ({ userProjects, username }) => {
     return (
         <div>
             <br />
@@ -12,7 +12,7 @@ const Projects = ({ userProjects, getProjectName }) => {
                         key={project.id}
                         projectName={project.name}
                         projetId={project.id}
-                        getProjectName={getProjectName}
+                        userName={username}
                     />
                 ))}
             </article>

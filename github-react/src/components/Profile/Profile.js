@@ -1,17 +1,15 @@
 import React from 'react'
-import { useState, useEffect } from 'react'
+import { useState, useEffect, useRef } from 'react'
 import './Profile.css'
 import ProjectsList from '../Project/ProjectsList.js'
 
-const Profile = () => {
+const Profile = (props) => {
     //state to save the fetched data
     const [projectInfo, setProjectInfo] = useState([])
     const [userInfo, setUserInfo] = useState([])
+    const userURL = useRef(props.location.search.split('=')[1])
 
-    //get username from the url
-    const url = new URL(window.location.href)
-    let userURL = url.searchParams.get('user').toString()
-
+    console.log(props.location.search)
     useEffect(() => {
         //pass object values to the state
         const getUserInfo = async () => {
@@ -26,7 +24,7 @@ const Profile = () => {
         //Fetch user information from the server
         const fetchUser = async () => {
             const fetchData = await fetch(
-                `http://localhost:3000/projects/${userURL}`
+                `http://localhost:3000/projects/${userURL.current}`
             )
             const data = await fetchData.json()
 
@@ -37,36 +35,26 @@ const Profile = () => {
         getUserInfo()
     }, [userURL])
 
-    //button funtion
-    const getProjectName = async (projectName) => {
-        
-        const myURL = new URL(window.location.href)
-        myURL.pathname = 'projectinfo'
-        myURL.search = `user=${userURL}&project=${projectName}`
-
-        window.location.href = myURL
-    }
-
     return (
         <div>
             <section className="center">
                 <article className="review">
                     <div className="img-container">
                         <img
-                            src={`https://github.com/${userURL}.png`}
+                            src={`https://github.com/${userURL.current}.png`}
                             id="person-img"
                             alt=" not found"
                         />
                     </div>
                     <h4 id="name">{userInfo.name}</h4>
-                    <h4 id="username">{userURL}</h4>
+                    <h4 id="username">{userURL.current}</h4>
                     <p id="id">{userInfo.id}</p>
                 </article>
             </section>
 
             <ProjectsList
                 userProjects={projectInfo}
-                getProjectName={getProjectName}
+                username={userURL.current}
             />
         </div>
     )

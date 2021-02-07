@@ -1,7 +1,16 @@
-import React from 'react'
+import { React, useState } from 'react'
 import './Nav.css'
 import '../Project/Project.css'
-const Nav = ({ onChange, onClick, userName }) => {
+import { Link } from 'react-router-dom'
+const Nav = () => {
+    //state that holds the user object
+    const [username, setUserName] = useState('')
+
+    //send username to the usestate
+    const onChangeHandler = (name) => {
+        setUserName(name.target.value)
+    }
+
     return (
         <div>
             <nav>
@@ -9,13 +18,7 @@ const Nav = ({ onChange, onClick, userName }) => {
                 <div className="nav-center">
                     <ul className="links">
                         <li>
-                            <a
-                                href="https://www.google.com/"
-                                target="_blank"
-                                rel="noopener noreferrer"
-                            >
-                                home
-                            </a>
+                            <Link to="/">Home</Link>
                         </li>
                         <li>
                             <a
@@ -56,16 +59,22 @@ const Nav = ({ onChange, onClick, userName }) => {
                                 <input
                                     type="text"
                                     placeholder="Search..."
-                                    value={userName}
-                                    onChange={onChange}
+                                    value={username}
+                                    onChange={onChangeHandler}
                                 ></input>
-                                <button
-                                    className="ui icon button"
-                                    type="submit"
-                                    onClick={onClick}
+                                <Link
+                                    to={{
+                                        pathname: '/userInfo',
+                                        search: `?user=${username}`,
+                                    }}
                                 >
-                                    <i className="search icon"></i>
-                                </button>
+                                    <button
+                                        className="ui icon button"
+                                        type="submit"
+                                    >
+                                        <i className="search icon"></i>
+                                    </button>
+                                </Link>
                             </div>
                         </div>
                     </li>
@@ -73,12 +82,6 @@ const Nav = ({ onChange, onClick, userName }) => {
             </nav>
         </div>
     )
-
-    function Home() {
-        const myURL = new URL(window.location.href)
-        myURL.pathname = 'home'
-        window.location.href = myURL
-    }
 }
 
 export default Nav

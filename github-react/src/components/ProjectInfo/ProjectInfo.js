@@ -1,11 +1,15 @@
 import './ProjectInfo.css'
-import { useState, useEffect } from 'react'
+import { useState, useEffect, useRef } from 'react'
 
-function ProjectInfo() {
-    //get username from the url
-    const url = new URL(window.location.href)
-    let userURL = url.searchParams.get('user').toString()
-    let projectURL = url.searchParams.get('project').toString()
+function ProjectInfo(props) {
+    //get username & project from the url
+    //const url = new URL(window.location.href)
+    //let userURL = url.searchParams.get('user').toString()
+    //let projectURL = url.searchParams.get('project').toString()
+
+    //get username & project from the url
+    let userURL = useRef(props.location.search.split(/[=,&]+/)[1])
+    let projectURL = useRef(props.location.search.split(/[=,&]+/)[3])
 
     //state that holds the project's infromation
     const [project, setProject] = useState([])
@@ -20,7 +24,7 @@ function ProjectInfo() {
 
         const fetchProject = async () => {
             const fetchInfo = await fetch(
-                `http://localhost:3000/projects/${userURL}/${projectURL}`
+                `http://localhost:3000/projects/${userURL.current}/${projectURL.current}`
             )
             const data = await fetchInfo.json()
 

@@ -1,8 +1,25 @@
 import './Title.css'
-
 import React from 'react'
+import { useState } from 'react'
+import { useAnimation } from 'react-rebound'
+import { Link } from 'react-router-dom'
 
-const Title = ({ userName, onChange, onClick }) => {
+const Title = () => {
+    //state that holds the user object
+    const [username, setUserName] = useState('')
+
+    //state for the animation
+    const [clicked, setClicked] = React.useState(false)
+    const ref = React.useRef()
+
+    //send username to the usestate
+    const onChangeHandler = (name) => {
+        setUserName(name.target.value)
+    }
+
+    // A little “pop” on hover
+    useAnimation(ref, { scaleX: clicked ? 1.1 : 1, scaleY: clicked ? 1.1 : 1 })
+
     return (
         <div className="title">
             <br />
@@ -20,17 +37,32 @@ const Title = ({ userName, onChange, onClick }) => {
                         <input
                             type="text"
                             placeholder="Search..."
-                            value={userName}
-                            onChange={onChange}
-                        ></input>
-                        <button
-                            className="ui primary button"
-                            type="submit"
-                            onClick={onClick}
+                            value={username}
+                            onChange={onChangeHandler}
+                        ></input>{' '}
+                        <Link
+                            to={{
+                                pathname: '/profile',
+                                search: `?user=${username}`,
+                                state: { fromDashboard: true },
+                            }}
                         >
-                            <i class="github icon"></i>
-                            {'Search'}
-                        </button>
+                            {' '}
+                            <button
+                                className="ui primary button"
+                                type="submit"
+                                onClick={() => {
+                                    // onClickHandler(a)
+                                    setClicked(true)
+                                }}
+                                onMouseEnter={() => setClicked(true)}
+                                onMouseLeave={() => setClicked(false)}
+                                ref={ref}
+                            >
+                                <i className="github icon"></i>
+                                {'Search'}
+                            </button>
+                        </Link>
                     </div>
                 </div>
             </li>
@@ -38,11 +70,3 @@ const Title = ({ userName, onChange, onClick }) => {
     )
 }
 export default Title
-
-{
-    /* <img
-src="https://clipart.info/images/ccovers/1499794873github-logo-png.png"
-width="500"
-height="200"
-/> */
-}

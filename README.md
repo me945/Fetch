@@ -1,4 +1,6 @@
-# stunning-sniffle
+# Fetch
+
+A web application that fetches and displays Github user's information
 
 ## To run this project
 
@@ -7,10 +9,25 @@ Set environment variable
 > export GITHUB_API_TOKEN=XXXX
 > nodemon server.js
 
+To run project
+
+```
+> cd github-react & npm start/yarn start
+```
+
+To create a production build
+
+```
+> node start
+> cd github-react & yarn build
+
+```
+
 ## Technologies used
 
 Node - JS runtime
 Express - server
+Reactjs - front-end
 Nodemon - devserver(watch server)
 Prettier - format code
 Eslint - look for errors
@@ -29,6 +46,8 @@ Load user info
 
     name
 
+    picture
+
     projects
 
         id
@@ -46,26 +65,3 @@ Load Project info for user
     commits
 
     contributors
-
-## TODO
-
-Github front-end
-
-HTML, CSS, JS
-
-Load a website on the server(app.static...)
-
-When the page loads, load the user info
-
-Display username in a nav bar
-
-For ever project, load project info
-
-Display all projects in a list with the name, description, commits, and contributors
-
-Use js map?
-
-## For Future
-
-Use create-react-app
-Add React

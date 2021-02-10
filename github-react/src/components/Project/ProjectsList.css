@@ -15,3 +15,10 @@
     margin-right: auto;
     width: 60%;
 }
+/* Mobile Phones*/
+@media screen and (max-width: 500px) {
+    .center-modified {
+    
+        width: 80%;
+    }
+}

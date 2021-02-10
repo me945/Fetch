@@ -68,3 +68,18 @@ main {
     right: -0.5rem;
     border-radius: 50%;
 }
+
+
+/* Mobile Phones*/
+@media screen and (max-width: 500px) {
+    .img-container {
+        width: 60px;
+        height: 60px;
+        border-radius: 10%;
+        margin-bottom: 0.75rem;
+    }
+    .center {
+        width: 50%;
+        padding-top: 10px;
+    }
+}

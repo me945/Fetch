@@ -192,3 +192,19 @@
     background-color: rgba(0, 0, 0, 0.03);
     border: 1px solid rgba(38, 143, 255, 0.5);
 }
+
+/* Mobile Phones*/
+@media screen and (max-width: 500px) {
+    .btn {
+        display: flex;
+        justify-content: flex-end;
+        font-weight: 400;
+        text-align: center;
+        font-family: sans-serif;
+        user-select: none;
+        border: 1px solid transparent;
+        font-size: 1rem;
+        line-height: 1.5;
+        border-radius: 0.25rem;
+    }
+}

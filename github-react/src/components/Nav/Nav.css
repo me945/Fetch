@@ -123,3 +123,41 @@ nav {
     display: flex;
     justify-content: space-around;
 }
+
+/* Mobile Phones*/
+@media screen and (max-width: 500px) {
+    .mobile-nav{
+        display: flex;
+        justify-content: flex-end;
+        align-items: flex-end;
+        padding-top: 30px;
+        
+    }
+    .nav-center {
+        margin: 1 auto;
+        display: flex;
+        padding: 1rem;
+        font-size: smaller;
+    }
+    .nav-header {
+        padding: 0;
+    }
+    .nav-toggle {
+        display: none;
+    }
+    .links {
+        height: auto;
+        display: flex;
+    }
+    .links a {
+        align-items: flex-start;
+        padding: 0;
+        margin: 0 0.2rem;
+    }
+    .links a:hover {
+        padding: 0;
+        background: transparent;
+    }
+
+}
+

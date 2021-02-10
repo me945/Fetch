@@ -48,11 +48,8 @@ const Nav = () => {
                             </a>
                         </li>
                     </ul>
-                    <li
-                        style={{
-                            display: 'flex',
-                            justifyContent: 'flex-end',
-                        }}
+                    {/* <li
+                        className="mobile-nav"
                     >
                         <div>
                             <div className="ui action input">
@@ -79,7 +76,7 @@ const Nav = () => {
                                 </Link>
                             </div>
                         </div>
-                    </li>
+                    </li> */}
                 </div>
             </nav>
         </div>

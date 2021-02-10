@@ -1,6 +1,5 @@
 import './ProjectInfo.css'
 import { useState, useEffect, useRef } from 'react'
-import { Link } from 'react-router-dom'
 function ProjectInfo(props) {
     //get username & project from the url
     //const url = new URL(window.location.href)
@@ -27,7 +26,7 @@ function ProjectInfo(props) {
 
         const fetchProject = async () => {
             const fetchInfo = await fetch(
-                `http://localhost:3000/projects/${userURL.current}/${projectURL.current}`
+                `https://github-nodejs.herokuapp.com/projects/${userURL.current}/${projectURL.current}`
             )
             const data = await fetchInfo.json()
 

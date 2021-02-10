@@ -5,7 +5,7 @@ import { Link } from 'react-router-dom'
 const Nav = () => {
     //state that holds the user object
     const [username, setUserName] = useState('')
-
+    
     //send username to the usestate
     const onChangeHandler = (name) => {
         setUserName(name.target.value)
@@ -64,13 +64,15 @@ const Nav = () => {
                                 ></input>
                                 <Link
                                     to={{
-                                        pathname: '/userInfo',
+                                        pathname: '/profile',
                                         search: `?user=${username}`,
+                                        state:{fromDashboard: true}
                                     }}
                                 >
                                     <button
                                         className="ui icon button"
                                         type="submit"
+                            
                                     >
                                         <i className="search icon"></i>
                                     </button>

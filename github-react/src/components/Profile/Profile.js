@@ -7,9 +7,10 @@ const Profile = (props) => {
     //state to save the fetched data
     const [projectInfo, setProjectInfo] = useState([])
     const [userInfo, setUserInfo] = useState([])
-    const userURL = useRef(props.location.search.split('=')[1])
+    // let userURL = useRef(props.location.search.split('=')[1])
+    const url = new URL (window.location.href)
+    let userURL = url.searchParams.get("user").toString()
 
-    console.log(props.location.search)
     useEffect(() => {
         //pass object values to the state
         const getUserInfo = async () => {
@@ -24,16 +25,19 @@ const Profile = (props) => {
         //Fetch user information from the server
         const fetchUser = async () => {
             const fetchData = await fetch(
-                `http://localhost:3000/projects/${userURL.current}`
+                `https://github-nodejs.herokuapp.com/projects/${userURL}`
             )
             const data = await fetchData.json()
 
+            console.log('this is data')
             console.log(data)
+
             return data
         }
 
         getUserInfo()
     }, [userURL])
+
 
     return (
         <div>
@@ -41,7 +45,7 @@ const Profile = (props) => {
                 <article className="review">
                     <div className="img-container">
                         <img
-                            src={`https://github.com/${userURL.current}.png`}
+                            src={`https://github.com/${userURL}.png`}
                             id="person-img"
                             alt=" not found"
                         />
@@ -54,7 +58,7 @@ const Profile = (props) => {
 
             <ProjectsList
                 userProjects={projectInfo}
-                username={userURL.current}
+                username={userURL}
             />
         </div>
     )
